@@ -33,11 +33,9 @@ catch {
 
 #Get the current IPs (local dynamic & gateway)
 [string]$dynamicIP = ([System.Net.DNS]::GetHostAddresses($dynamicFQDN)).IPAddressToString
-$message = "Current Dynamic IP: " + $dynamicIP
-Write-Output $message
+Write-Output "Current Dynamic IP: " + $dynamicIP
 $localGateway = Get-AzureRmLocalNetworkGateway -ResourceName $gatewayName -ResourceGroupName $resourceGroup
-$message = "Current Local Network Gateway IP: " + $localGateway.GatewayIPAddress
-Write-Output $message
+Write-Output "Current Local Network Gateway IP: " + $localGateway.GatewayIPAddress
 
 #Determine if gateway IP needs update
 If ($dynamicIP -ne $localGateway.GatewayIpAddress) {
