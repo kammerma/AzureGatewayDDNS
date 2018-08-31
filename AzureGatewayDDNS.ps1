@@ -1,8 +1,14 @@
 #Set parameters
+Param
+(
+  [Parameter (Mandatory= $true)]
+  [String] $dynamicFQDN,
+  [Parameter (Mandatory= $false)]
+  [String] $resourceGroup = "AzureNetGroup",
+  [Parameter (Mandatory= $false)]
+  [String] $gatewayName = "BlossomNet"
+)
 $connectionName = "AzureRunAsConnection"
-$dynamicFQDN = "home.kammermanns.ch"
-$resourceGroup = "AzureNetGroup"
-$gatewayName = "BlossomNet"
 
 #Log in to Azure
 try
