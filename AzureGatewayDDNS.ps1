@@ -1,6 +1,6 @@
 #Set parameters
 $connectionName = "AzureRunAsConnection"
-$dynamicFQDN = "home.juds.ch"
+$dynamicFQDN = "home.kammermanns.ch"
 $resourceGroup = "AzureNetGroup"
 $gatewayName = "BlossomNet"
 
@@ -37,7 +37,7 @@ Write-Output $message
 If ($dynamicIP -ne $localGateway.GatewayIpAddress) {
     Write-Output "Dynamic IP is different to Local Network Gateway IP ... updating"
     $localGateway.GatewayIpAddress = $dynamicIP
-    Set-AzureRmLocalNetworkGateway -LocalNetworkGateway $localGateway
+    Set-AzureRmLocalNetworkGateway -LocalNetworkGateway $localGateway | Out-null
 }
 else {
     Write-Output "No changes required"
