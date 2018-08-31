@@ -1,10 +1,10 @@
-# Set parameters
+#Set parameters
 $connectionName = "AzureRunAsConnection"
-$dynamicFQDN = "home.kammermanns.ch"
+$dynamicFQDN = "home.juds.ch"
 $resourceGroup = "AzureNetGroup"
 $gatewayName = "BlossomNet"
 
-# Log in to Azure
+#Log in to Azure
 try
 {
     $servicePrincipalConnection=Get-AutomationConnection -Name $connectionName         
@@ -25,15 +25,15 @@ catch {
     }
 }
 
-# Get the current IPs (local dynamic & gateway)
+#Get the current IPs (local dynamic & gateway)
 [string]$dynamicIP = ([System.Net.DNS]::GetHostAddresses($dynamicFQDN)).IPAddressToString
-$message = "Current Dynamic IP: $dynamicIP"
+$message = "Current Dynamic IP: " + $dynamicIP
 Write-Output $message
 $localGateway = Get-AzureRmLocalNetworkGateway -ResourceName $gatewayName -ResourceGroupName $resourceGroup
-$message = "Current Local Network Gateway IP:" $localGateway.GatewayIPAddress
+$message = "Current Local Network Gateway IP: " + $localGateway.GatewayIPAddress
 Write-Output $message
 
-# Determine if gateway IP needs update
+#Determine if gateway IP needs update
 If ($dynamicIP -ne $localGateway.GatewayIpAddress) {
     Write-Output "Dynamic IP is different to Local Network Gateway IP ... updating"
     $localGateway.GatewayIpAddress = $dynamicIP
